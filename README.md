@@ -26,11 +26,35 @@
 | Deployment settings | `Jenkinsfile` (Declarative or Scripted Groovy), controller/agent topology, plugin-based integrations | Pipelines/stages/actions/transitions, CodeBuild `buildspec.yml`, CloudFormation/CLI/Console configuration | YAML workflows in `.github/workflows`, matrix builds, environments with approval rules, hosted or self-hosted runners |
 | Operational overhead | High | Low | Low to medium (higher with self-hosted runners) |
 
-### Pricing notes (from the benchmark text)
+### Detailed pricing (USD, from the benchmark text)
 
-- Jenkins: software is free, but infrastructure, plugin management, security patching, and staffing can dominate cost.
-- AWS CodePipeline: V2 pricing is action-duration based (quoted as `$0.002` per action-minute) with related AWS service costs billed separately.
-- GitHub Actions: plan-based quotas plus runner-based overage rates; Linux is typically cheapest, macOS is the most expensive.
+| Platform | Pricing detail |
+| --- | --- |
+| Jenkins | Software license: `$0`. Main costs are infrastructure (VMs/storage/network), plugin maintenance, security operations, and DevOps staffing. |
+| AWS CodePipeline | V2 model: `$0.002` per action-minute. Manual approvals and custom actions are not billed by action-minute in the benchmark notes. Additional charges apply for related services like S3, CodeBuild, and CodeDeploy. |
+| GitHub Actions | Plan + usage model: included monthly minutes/storage by plan, then per-minute overage by runner type. |
+
+#### GitHub plan pricing (private repositories)
+
+| Plan | Price | Included CI/CD minutes | Included storage |
+| --- | --- | --- | --- |
+| GitHub Free | `$0` / user / month | `2,000` minutes | `500 MB` |
+| GitHub Team | `$4` / user / month (first 12 months, per benchmark text) | `3,000` minutes | `2 GB` |
+| GitHub Enterprise | Starts at `$21` / user / month | `50,000` minutes | `50 GB` |
+
+#### GitHub hosted runner overage rates
+
+| Runner type | Cost (USD/minute) |
+| --- | --- |
+| Linux 1-core (x64) | `$0.002` |
+| Linux 2-core (arm64) | `$0.005` |
+| Linux 2-core (x64) | `$0.006` |
+| Windows 2-core (x64/arm64) | `$0.010` |
+| macOS (M1/Intel) | `$0.062` |
+
+Additional cache/storage overage in the benchmark text: `$0.07` per GiB per month.
+
+Note: cloud pricing changes frequently. Treat these as benchmark reference values and confirm current pricing on vendor billing pages before budgeting.
 
 ### Decision guidance
 
