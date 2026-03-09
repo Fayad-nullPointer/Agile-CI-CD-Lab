@@ -1,14 +1,18 @@
 class String_Sum_of_Digits:
-    '''This class contains a method that takes a string as input and returns the sum of all the digits in the string.'''
-    @staticmethod   
-    def String_Sum_of_Digits(s : str) -> int:
-        '''This function takes a string as input and returns the sum of all the digits in the string.'''
-        # Initialize the sum to 0
-        sum = 0
-        # Iterate through each character in the string
+    """Utilities for summing digits embedded in text."""
+
+    @staticmethod
+    def String_Sum_of_Digits(s: str) -> int:
+        """Return the sum of all digit characters found in ``s``.
+
+        Raises:
+            TypeError: If ``s`` is not a string.
+        """
+        if not isinstance(s, str):
+            raise TypeError("Input must be a string")
+
+        total = 0
         for char in s:
-            # Check if the character is a digit
             if char.isdigit():
-                sum += int(char)
-        # Return the sum of the digits
-        return sum
+                total += int(char)
+        return total
